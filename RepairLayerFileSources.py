@@ -18,7 +18,7 @@ for filename in os.listdir(directory):
                     for tif in os.listdir(directory):
                         if tif.startswith(filename[:2]) and tif.endswith(".tif"):
                             tifName = tif
-                    cp['dataset'] = tifName # string containing .tif name here, how do we get it here?
+                    cp['dataset'] = tifName
                     print("updating connection")
                     lyr.updateConnectionProperties(lyr.connectionProperties, cp)
         lyrFile.save()
