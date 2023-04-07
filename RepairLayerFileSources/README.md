@@ -26,7 +26,8 @@ For now, follow these steps to use this script as-is in your project:
 The script will set the source for the "broken" .LYRX files to the proper .TIF file. The .LYRX files can now be added to your project without needing to deal with those pesky red exclamation points by manually setting the source.
 
 ## Known Issues/TO DO
-- [ ] Figure out why the Existing Vegetation Cover (EVC) .LYRX is not cooperating.
+- [x] Figure out why the Existing Vegetation Cover (EVC) .LYRX is not cooperating.
+    - Sometimes, the data source gets set to the wrong .TIF (EVC layer getting set to the EVT .TIF).
 - [ ] Turn this script into a tool that can be run within an ArcGIS Pro project at the click of a button. 
 - [ ] Add comments to complicated parts.
 - [ ] Explore alternatives to setting source by index of the string that makes up the file's name. 
