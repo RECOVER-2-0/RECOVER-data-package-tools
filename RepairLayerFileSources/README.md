@@ -20,8 +20,8 @@ For now, follow these steps to use this script as-is in your project:
 3. Open a new project in ArcGIS Pro.
 4. Create a new map using the unzipped data package as its location.
 5. Click on the script to run it.
-    a. Alternatively, you can just copy the script contents and add it to a new ArcGIS Notebook within your project and run it from there.
-    b. The script contents could also be copied from this repo and added to/run from an ArcGiS Notebook within your project.  
+    - Alternatively, you can just copy the script contents and add it to a new ArcGIS Notebook within your project and run it from there.
+    - The script contents could also be copied from this repo and added to/run from an ArcGiS Notebook within your project.  
 
 The script will set the source for the "broken" .LYRX files to the proper .TIF file. The .LYRX files can now be added to your project without needing to deal with those pesky red exclamation points by manually setting the source.
 
