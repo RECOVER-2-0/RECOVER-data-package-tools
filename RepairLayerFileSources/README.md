@@ -1,1 +1,32 @@
-# RepairLayerFileSources README
+
+# Repair Layer File Sources
+
+Automatically repairs the sources of certain .LYRX files found within the RECOVER data packages downloaded from the [NASA RECOVER post-wildfire decision support system dashboard](https://www.arcgis.com/apps/dashboards/19af90a8bc5d41188ed855d249bc1c72). 
+
+## Overview 
+
+Layer files (.LYRX file extensions in ArcGIS Pro, .LYR file extensions in ArcMap) do not store relative paths for their sources. When a user adds .LYRX files received via download or another source to their project, the layer in the Contents pane will typically be accompanied by a red exclamation mark ( :exclamation: ). In addition, the layer will not draw if the user has added it to a map. This is because the source is "broken." [Repairing .LYRX sources manually](https://pro.arcgis.com/en/pro-app/latest/help/mapping/layer-properties/repair-broken-data-links.htm) can be time consuming, especially if you have to repair many similar sources. 
+
+This script is designed to assist end users of the NASA RECOVER DSS dashboard in their analysis of areas after wildfires by automatically repairing the sources of the .LYRX files found in the data packages they download. End users can dive right in to analysis without needing to painstakingly repair the data sources for each non-webservice-based .LYRX file.
+
+## Instructions
+
+In the future, this script will be added as a tool which will come packaged with the RECOVER data packages downloaded from the dashboard. Simply open up the data package folder in an ArcGIS Pro project and click on the tool to automatically repair the sources of non-webservice-based .LYRX files.
+
+For now, follow these steps to use this script as-is in your project:
+
+1. Download a data package from the dashboard and extract it somewhere on your hard drive.
+2. Clone this folder to the unzipped data package file you just created.
+3. Open a new project in ArcGIS Pro.
+4. Create a new map using the unzipped data package as its location.
+5. Click on the script to run it.
+    a. Alternatively, you can just copy the script contents and add it to a new ArcGIS Notebook within your project and run it from there.
+    b. The script contents could also be copied from this repo and added to/run from an ArcGiS Notebook within your project.  
+
+The script will set the source for the "broken" .LYRX files to the proper .TIF file. The .LYRX files can now be added to your project without needing to deal with those pesky red exclamation points by manually setting the source.
+
+## Known Issues/TO DO
+- [ ] Figure out why the Existing Vegetation Cover (EVC) .LYRX is not cooperating.
+- [ ] Turn this script into a tool that can be run within an ArcGIS Pro project at the click of a button. 
+- [ ] Add comments to complicated parts.
+- [ ] Explore alternatives to setting source by index of the string that makes up the file's name. 
