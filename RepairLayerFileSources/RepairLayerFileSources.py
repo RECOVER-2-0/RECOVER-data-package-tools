@@ -16,7 +16,7 @@ for filename in os.listdir(directory):
                     cp = lyr.connectionProperties
                     cp['connection_info']['database'] = directory
                     for tif in os.listdir(directory):
-                        if tif.startswith(filename[:2]) and tif.endswith(".tif"):
+                        if tif.startswith(filename[:3]) and tif.endswith(".tif"):
                             tifName = tif
                     cp['dataset'] = tifName
                     print("updating connection")
