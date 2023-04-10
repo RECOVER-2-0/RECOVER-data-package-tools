@@ -10,7 +10,7 @@ def repairSources():
     # Loop
     for filename in os.listdir(directory):
         if filename.endswith(".lyrx",3,8):    
-            lyrPath = os.path.join(directory, filename)
+            lyrPath = os.path.join(directory, filename) # Consider change to just os.path.abspath(filename)
             print(lyrPath)
             lyrFile = arcpy.mp.LayerFile(lyrPath)
             for lyr in lyrFile.listLayers():
