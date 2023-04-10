@@ -28,7 +28,7 @@ The script will set the source for the "broken" .LYRX files to the proper .TIF f
 ## Known Issues/TO DO
 - [x] Figure out why the Existing Vegetation Cover (EVC) .LYRX is not cooperating.
     - Sometimes, the data source gets set to the wrong .TIF (EVC layer getting set to the EVT .TIF).
-- [ ] Turn this script into a tool that can be run within an ArcGIS Pro project at the click of a button. 
+- [x] Turn this script into a tool that can be run within an ArcGIS Pro project at the click of a button. 
 - [ ] Add comments to complicated parts.
 - [ ] Consider alternatives to setting source by index of the string that makes up the file's name.
     - Like perhaps make sure the string of the layer name matches part of the string of the raster name.
