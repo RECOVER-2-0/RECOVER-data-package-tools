@@ -11,7 +11,7 @@ This script is designed to assist end users of the NASA RECOVER DSS dashboard in
 
 ## Instructions
 
-In the future, this script will be added as a tool which will come packaged with the RECOVER data packages downloaded from the dashboard. Simply open up the data package folder in an ArcGIS Pro project and click on the tool to automatically repair the sources of non-webservice-based .LYRX files.
+In the future, this script will be added as a tool which will come packaged with the RECOVER data packages downloaded from the dashboard. You'll be able to open up the data package folder in an ArcGIS Pro project, expand the RECOVERDataPackageTools.atbx, and click on the tool to automatically repair the sources of non-webservice-based .LYRX files.
 
 For now, follow these steps to use this script as-is in your project:
 
