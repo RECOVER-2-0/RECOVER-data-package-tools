@@ -11,17 +11,13 @@ This script is designed to assist end users of the NASA RECOVER DSS dashboard in
 
 ## Instructions
 
-In the future, this script will be added as a tool which will come packaged with the RECOVER data packages downloaded from the dashboard. You'll be able to open up the data package folder in an ArcGIS Pro project, expand the RECOVERDataPackageTools.atbx, and click on the tool to automatically repair the sources of non-webservice-based .LYRX files.
+This script can be found in the RECOVERDataPackageTools.atbx, which should come with every data package downloaded from the NASA RECOVER post-wildfire decision support system dashboard. Instructions for use are as follows:
 
-For now, follow these steps to use this script as-is in your project:
-
-For now, follow these steps to use this script as-is in your project:
-
-1. Download a data package from the dashboard and extract it somewhere on your hard drive.
-2. Open a new project in ArcGIS Pro.
-3. Create a new map using the unzipped data package as its location.
-4. Within your project, create a new notebook and copy in this script.
-5. Click Run.
+1. Connect the extracted data package folder to a project in ArcGIS Pro.
+2. Locate and expand the RECOVERDataPackageTools.atbx.
+3. Double-click on the Repair Layer File Sources script tool to open it in a Geoprocessing pane.
+4. In the Fire Folder box, specify the data package for which you would like to repair sources (for example, the folder should look like "Fire_2022_ORWWF_000400" for the Double Creek fire).
+5. Click "Run" in the bottom right-hand corner of the Geoprocessing pane. 
 
 The script will set the source for the "broken" .LYRX files to the proper .TIF file. The .LYRX files can now be added to your project without needing to deal with those pesky red exclamation points by manually setting the source.
 
