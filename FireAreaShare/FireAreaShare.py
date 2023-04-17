@@ -41,7 +41,7 @@ def GetFireAreaShare(workspace, clip_features, in_features):
 if __name__ == '__main__':
 
     workspace = arcpy.GetParameterAsText(0)
-    clip_features = arcpy.GetParametersAsText(1)
+    clip_features = arcpy.GetParameterAsText(1)
     in_features = arcpy.GetParameterAsText(2)
 
     GetFireAreaShare(workspace, clip_features, in_features)
