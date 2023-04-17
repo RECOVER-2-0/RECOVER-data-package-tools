@@ -11,6 +11,7 @@ def GetFireAreaShare(workspace, clip_features, in_features):
 
     # Run Pairwise Clip
     arcpy.analysis.PairwiseClip(in_features, clip_features, out_feature_class)
+    arcpy.AddMessage("Features clipped to Fire Perimeter.")
 
     # Re-name variable for output of Pairwise Clip
     fc = out_feature_class 
@@ -18,6 +19,7 @@ def GetFireAreaShare(workspace, clip_features, in_features):
     # Get total area of the new feature class to be used later in field calculation
     # This could alternatively be found by getting the Shape_Area of the Fire_Perimeter feature class
     totalArea = 0
+    arcpy.AddMessage("Calculating total area...")
     with arcpy.da.SearchCursor(fc, ['Shape_Area']) as cursor: # Maybe just pass out_feature_class instead of fc here
         for row in cursor:
             totalArea += row[0]
@@ -27,12 +29,13 @@ def GetFireAreaShare(workspace, clip_features, in_features):
     arcpy.management.AddField(fc, "fa_Share", "DOUBLE", field_alias="Fire Area Share")
 
     # Cursor to calculate values for new fields
+    arcpy.AddMessage("Calculating share for each feature in the feature class.")
     with arcpy.da.UpdateCursor(fc, ['Shape_Area', 'fa_Share']) as cursor:
         for row in cursor: 
             row[1] = (row[0])/totalArea
             cursor.updateRow(row)
     del cursor
-    # Done!
+    arcpy.AddMessage("Fire area share calculated successfully.")
     return
 
 if __name__ == '__main__':
