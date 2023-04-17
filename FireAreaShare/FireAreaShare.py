@@ -36,6 +36,12 @@ def GetFireAreaShare(workspace, in_features, clip_features):
             cursor.updateRow(row)
     del cursor
     arcpy.AddMessage("Fire area share calculated successfully.")
+
+    # Add to current map
+    aprx = arcpy.mp.ArcGISProject("CURRENT")
+    aprxMap = aprx.listMaps()[0]
+    aprxMap.addDataFromPath(fc)
+    
     return
 
 if __name__ == '__main__':
