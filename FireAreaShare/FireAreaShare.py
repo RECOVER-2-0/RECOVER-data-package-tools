@@ -1,12 +1,12 @@
 # Libraries
 import arcpy
 
-def GetFireAreaShare(workspace, in_features):
+def GetFireAreaShare(workspace, clip_features, in_features):
     # Define workspace
     arcpy.env.workspace = workspace
 
     # Choose features to clip, set Fire_Perimeter as clip features
-    clip_features = "Fire_Perimeter" 
+    # clip_features = "Fire_Perimeter" 
     out_feature_class = in_features + "_Share" # Add _Share to end of in_features string
 
     # Run Pairwise Clip
@@ -38,6 +38,7 @@ def GetFireAreaShare(workspace, in_features):
 if __name__ == '__main__':
 
     workspace = arcpy.GetParameterAsText(0)
-    in_features = arcpy.GetParameterAsText(1)
+    clip_features = arcpy.GetParametersAsText(1)
+    in_features = arcpy.GetParameterAsText(2)
 
-    GetFireAreaShare(workspace, in_features)
+    GetFireAreaShare(workspace, clip_features, in_features)
