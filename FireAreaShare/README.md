@@ -1,7 +1,7 @@
 
-# Fire Area Share
+# Percent Distribution within Fire Perimeter (formerly Fire Area Share)
 
-Calculates the share of a fire area for each part of any multi-part polygons inside the Fire.gdb that comes with each RECOVER data package downloaded from the [NASA RECOVER post-wildfire decision support system dashboard](https://www.arcgis.com/apps/dashboards/19af90a8bc5d41188ed855d249bc1c72).
+Calculates the percent distribution of a fire area for each part of any multi-part polygons inside the Fire.gdb that comes with each RECOVER data package downloaded from the [NASA RECOVER post-wildfire decision support system dashboard](https://www.arcgis.com/apps/dashboards/19af90a8bc5d41188ed855d249bc1c72).
 
 ## Overview
 
