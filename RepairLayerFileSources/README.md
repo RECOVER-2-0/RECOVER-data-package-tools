@@ -11,7 +11,9 @@ This script is designed to assist end users of the NASA RECOVER DSS dashboard in
 
 ## Instructions
 
-This script can be found in the RECOVERDataPackageTools.atbx, which should come with every data package downloaded from the NASA RECOVER post-wildfire decision support system dashboard. Instructions for use are as follows:
+You can download the toolbox containing this script tool by clicking [here](https://github.com/crosner13/RECOVER-data-package-tools/raw/main/RECOVERDataPackageTools.atbx).
+
+This script can be found in the RECOVERDataPackageTools.atbx, which should soon come with every data package downloaded from the NASA RECOVER post-wildfire decision support system dashboard. Instructions for use are as follows:
 
 1. Connect the extracted data package folder to a project in ArcGIS Pro.
 2. Locate and expand the RECOVERDataPackageTools.atbx.
@@ -25,6 +27,6 @@ The script will set the source for the "broken" .LYRX files to the proper .TIF f
 - [x] Figure out why the Existing Vegetation Cover (EVC) .LYRX is not cooperating.
     - Sometimes, the data source gets set to the wrong .TIF (EVC layer getting set to the EVT .TIF).
 - [x] Turn this script into a tool that can be run within an ArcGIS Pro project at the click of a button. 
-- [ ] Add comments to complicated parts.
+- [x] Add comments to complicated parts.
 - [ ] Consider alternatives to setting source by index of the string that makes up the file's name.
     - Like perhaps make sure the string of the layer name matches part of the string of the raster name.
