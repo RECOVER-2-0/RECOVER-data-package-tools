@@ -1,3 +1,5 @@
+# The script tool name has been changed from "Fire Area Share" to "Percent Distribution within Fire Perimeter."
+
 # Libraries
 import arcpy
 
