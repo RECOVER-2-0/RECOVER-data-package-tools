@@ -20,6 +20,8 @@ The script is compatible with the following feature classes inside the Fire.gdb 
 
 ## Instructions
 
+You can download the toolbox containing this script tool by clicking [here](https://github.com/crosner13/RECOVER-data-package-tools/raw/main/RECOVERDataPackageTools.atbx).
+
 In the future, this script will be added as a tool which will come packaged with the RECOVER data packages downloaded from the dashboard. You'll be able to open up the data package folder in an ArcGIS Pro project, expand the RECOVERDataPackageTools.atbx, and click on the tool to generate new features with shares of the fire area already calculated.
 
 For now, follow these steps to use this script as-is in your project:
@@ -31,5 +33,5 @@ For now, follow these steps to use this script as-is in your project:
 5. Click Run.
 
 ## Known Issues/TO DO
-- [ ] Turn this script into a tool that can be run within an ArcGIS Pro project at the click of a button. 
-- [ ] Add user-defined parameters for running in ArcGIS Pro.
+- [x] Turn this script into a tool that can be run within an ArcGIS Pro project at the click of a button. 
+- [x] Add user-defined parameters for running in ArcGIS Pro.
