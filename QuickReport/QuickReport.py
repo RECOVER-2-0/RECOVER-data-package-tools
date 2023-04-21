@@ -23,7 +23,6 @@ def createQuickReport():
         # Add fire perimeter to new map, set extent
         qrMap.addDataFromPath(fp)
         fpLyr = qrMap.listLayers()[0] # Retrieves first layer
-        #qrMap.defaultCamera.setExtent(arcpy.Describe(fpLyr).extent) # Set extent to that of the last layer added
         
         # Import layout
         aprx.importDocument(lyt)
