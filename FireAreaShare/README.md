@@ -5,7 +5,7 @@ Calculates the percent distribution of a fire area for each part of any multi-pa
 
 ## Overview
 
-The breakdown of a fire area is a common workflow for end users of the NASA RECOVER DSS dashboard. For example, if a user wanted to figure out how much of the area affected by the wildfire belonged to the Bureau of Land Management, they might undergo the tedious process of clipping, adding fields, joining to the relevant layer, and calculating the new fields for the new feature class. The aim of this tool is to create that feature class very quickly using one script where parameters are specified once. It produces a new feature class, which is clipped to the Fire_Perimeter, and contains a new field, Fire Area Shared (fa_Share), which contains a decimal value of the breakdown of the fire area. 
+The breakdown of a fire area is a common workflow for end users of the NASA RECOVER DSS dashboard. For example, if a user wanted to figure out how much of the area affected by the wildfire belonged to the Bureau of Land Management, they might undergo the tedious process of clipping, adding fields, joining to the relevant layer, and calculating the new fields for the new feature class. The aim of this tool is to create that feature class very quickly using one script where parameters are specified once. It produces a new feature class, which is clipped to the Fire_Perimeter, and contains a new field, Distribution within Fire Area (fa_Distribution), which contains a decimal value of the breakdown of the fire area. 
 
 The script is compatible with the following feature classes inside the Fire.gdb that comes with each RECOVER data package (more descriptive feature class names in parentheses if applicable):
  - SMA (Surface Management Agency)
