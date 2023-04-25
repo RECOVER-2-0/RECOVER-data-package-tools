@@ -27,17 +27,17 @@ def GetFireAreaShare(workspace, in_features, clip_features):
             totalArea += row[0]
     del cursor
 
-    # Add new field for Fire Area Share
+    # Add new field for Fire Area Distribution
     arcpy.management.AddField(fc, "fa_Distribution", "DOUBLE", field_alias="Distribution within Fire Area")
 
     # Cursor to calculate values for new fields
-    arcpy.AddMessage("Calculating share for each feature in the feature class.")
-    with arcpy.da.UpdateCursor(fc, ['Shape_Area', 'fa_Share']) as cursor:
+    arcpy.AddMessage("Calculating distribution for each feature in the feature class.")
+    with arcpy.da.UpdateCursor(fc, ['Shape_Area', 'fa_Distribution']) as cursor:
         for row in cursor: 
             row[1] = (row[0])/totalArea
             cursor.updateRow(row)
     del cursor
-    arcpy.AddMessage("Fire area share calculated successfully.")
+    arcpy.AddMessage("Fire area distribution calculated successfully.")
 
     # Add to current map
     aprx = arcpy.mp.ArcGISProject("CURRENT")
