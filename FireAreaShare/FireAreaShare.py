@@ -9,7 +9,7 @@ def GetFireAreaShare(workspace, in_features, clip_features):
 
     # Choose features to clip, set Fire_Perimeter as clip features
     # clip_features = "Fire_Perimeter" 
-    out_feature_class = in_features + "_Share" # Add _Share to end of in_features string
+    out_feature_class = in_features + "_Distribution" # Add _Distribution to end of in_features string
 
     # Run Pairwise Clip
     arcpy.analysis.PairwiseClip(in_features, clip_features, out_feature_class)
@@ -28,7 +28,7 @@ def GetFireAreaShare(workspace, in_features, clip_features):
     del cursor
 
     # Add new field for Fire Area Share
-    arcpy.management.AddField(fc, "fa_Share", "DOUBLE", field_alias="Fire Area Share")
+    arcpy.management.AddField(fc, "fa_Distribution", "DOUBLE", field_alias="Distribution within Fire Area")
 
     # Cursor to calculate values for new fields
     arcpy.AddMessage("Calculating share for each feature in the feature class.")
