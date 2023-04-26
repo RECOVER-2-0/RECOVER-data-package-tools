@@ -34,7 +34,7 @@ def GetFireAreaShare(workspace, in_features, clip_features):
     arcpy.AddMessage("Calculating distribution for each feature in the feature class.")
     with arcpy.da.UpdateCursor(fc, ['Shape_Area', 'fa_Distribution']) as cursor:
         for row in cursor: 
-            row[1] = (row[0])/totalArea
+            row[1] = ((row[0])/totalArea)*100
             cursor.updateRow(row)
     del cursor
     arcpy.AddMessage("Fire area distribution calculated successfully.")
