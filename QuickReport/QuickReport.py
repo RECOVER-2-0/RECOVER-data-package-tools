@@ -1,6 +1,6 @@
 import arcpy, os
 from matplotlib import pyplot as plt
-
+import seaborn
 from arcpy.sa import *
 from IPython.display import HTML, display
 import pandas as pd
@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 
 
 # Surface Management Summary Pie Chart
-def acreagePieChart(inputFeatures, clipFeatures, statField, chartTitle):
+def acreagePieChart(inputFeatures, clipFeatures, statField, chartTitle, outpath):
     tempOutput = inputFeatures + "_Distribution"
     tempOutput2 = inputFeatures + "_Dissolve"
     arcpy.PairwiseClip_analysis(inputFeatures, clipFeatures, tempOutput)
@@ -43,10 +43,10 @@ def acreagePieChart(inputFeatures, clipFeatures, statField, chartTitle):
     plt.pie(x = acreList, labels = statFieldValList, colors = paletteColor, 
         autopct = '%.0f%%')
 
-    plt.savefig(os.path.join(fireDataPackage, "PieChart.png"))
+    plt.savefig(os.path.join(outpath, "PieChart.png"))
     
 # Land Cover Summary Table
-def landCoverSummary(zoneData, valueRaster):
+def landCoverSummary(zoneData, fire_feature_class, valueRaster):
     arcpy.CheckOutExtension("Spatial")
     
     zoneField = "poly_IncidentName" # should always be the same
@@ -78,7 +78,7 @@ def landCoverSummary(zoneData, valueRaster):
     
     valsList = list(vals[0]) # For some reason, the search cursor returns a list of 1 tuple, so here we change it back into a list
     
-    fireFcShapeArea = [row[0] for row in arcpy.da.SearchCursor(fireFc, ["Shape_Area"])][0]
+    fireFcShapeArea = [row[0] for row in arcpy.da.SearchCursor(fire_feature_class, ["Shape_Area"])][0]
     lcAcres = valsList[5]
 
     pctCov = (round(lcAcres/(fireFcShapeArea/4046.8564224), 4) * 100)
@@ -100,7 +100,8 @@ def landCoverSummary(zoneData, valueRaster):
         ]
     }])
 
-    display(HTML(df.to_html(index=False)))
+    #display(HTML(df.to_html(index=False)))
+    return str(df.to_html(index=False))
     
 
 # Topography Summary Tables    
@@ -127,13 +128,13 @@ def topoStatTable(zoneData, topoRaster, tblTitle):
     
     print(df.to_html(index=False))
 
-    display(HTML(df.to_html(index=False)))
+    #display(HTML(df.to_html(index=False)))
     return str(df.to_html(index=False))
 
 # Write HTML to Report
-def writeToReport(HTML_to_insert, HTML_element_ID):
+def writeToReport(data_package_location, HTML_to_insert, HTML_element_ID):
     
-    templatePath = os.path.join(fireDataPackage, "Report_Boilerplate.html")
+    templatePath = os.path.join(data_package_location, "Report_Boilerplate.html")
 
     reportTemplate = open(templatePath)
 
