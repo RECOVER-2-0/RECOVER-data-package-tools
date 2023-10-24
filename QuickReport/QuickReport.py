@@ -45,8 +45,6 @@ def acreagePieChart(inputFeatures, clipFeatures, statField, chartTitle):
 
     plt.savefig(os.path.join(fireDataPackage, "PieChart.png"))
     
-
-    
 # Land Cover Summary Table
 def landCoverSummary(zoneData, valueRaster):
     arcpy.CheckOutExtension("Spatial")
