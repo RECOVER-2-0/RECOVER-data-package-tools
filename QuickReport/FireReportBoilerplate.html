@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RECOVER Fire Report Generation Template</title>
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+      
+      #divider {
+        text-align: center;
+      }
+      
+      .cover {
+        text-align: center;
+        font-weight: bold;
+        font-size: 18pt;
+      }
+      
+      .cover img {
+        width: 20em; 
+        /* might need to change, unsure how export to PDF will deal with em */
+      }
+      
+      .content #population div {
+        display: inline;
+      }
+      
+      .caption {
+        font-style: italic;
+        color: grey;
+      }
+      
+      table {
+        border-collapse: collapse;
+        border: 1px solid black;
+      }
+      
+      th {
+        font-weight: bold;
+        padding: 10px;
+      }
+      
+      td {
+        border: 1px solid black;
+        padding: 5px;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <main>
+      
+      <!--PAGE ONE-->
+      <div class="cover">
+        <img src="https://www.arcgis.com/sharing/rest/content/items/18fb54a427d449c08dc79ba4a650d636/resources/images/widget_159/1683741702207.png" alt="NASA RECOVER 2.0 logo"/>
+        <div id="coverName">Fire Name (Fire Unique ID) Summary Report</div>
+        <div id="coverAcres">##### Acres</div>
+      </div>
+      
+      <div id="divider"><br><br>###############################################################################################################################################<br><br></div>
+      
+      <!--PAGE TWO-->
+      <div class="content">
+        <!--<div id="population">
+          <h3>Population Summary</h3>
+          <div>
+            These estimates are based on the 2020 Census data.<br>
+            <br>2020 Census block population data estimates this fire impacted <div id="popImpact">####</div> people living within the fire impacted area. The impacted area (##### acres) of the fire is defined by the boundaries of all HUC12 watersheds intersecting the fire boundary. Population data existed for <div id="popPerc">##</div>% of the impacted area.
+          </div>
+        </div>-->
+        <div id="surfaceMgmt">
+          <h3>Surface Management Agency Summary</h3>
+          <div>
+            These data are based on the USDI BLM Surface Management Agency (SMA) layer (Figure 1).
+          </div>
+          <div class="placeholderImg">
+            <img id="smaChart" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Grey_Square.svg/240px-Grey_Square.svg.png">
+          </div>
+          <div class="caption">
+            Figure 1. The acreage of lands managed by agencies within the fire area.
+          </div>
+        </div> 
+        <!--<div id="fireSeverity">
+          <h3>Fire Severity Summary</h3>
+          <div>
+            These summary data (Table 1) are based on the Preliminary Fire Severity (dNBR) layer (Figure 2).
+          </div>
+          <div class="caption">
+            Table 1. Statistics from a differenced normalized burn ratio (dNBR) can reveal information about the severity of the fire (Table 2) within the burn area. Large positive values indicate severe burn damage while large negative values indicated regrowth of the vegetation.
+          </div>
+          <table>
+            <tr style="background-color:#DCC48E;">
+              <th>dNBR Statistics</th>
+              <th></th>
+            </tr>
+            <tr>
+              <td>Minimum</td>
+              <td>## -188 ##</td>
+            </tr>
+            <tr>
+              <td>Maximum</td>
+              <td>## 980 ##</td>
+            </tr>
+            <tr>
+              <td>Median</td>
+              <td>## 250 ##</td>
+            </tr>
+            <tr>
+              <td>Mean</td>
+              <td>## 369 ##</td>
+            </tr>
+          </table>
+          <div class="caption">
+            Table 2. Ranges of dNBR values and their respective fire severity classes as designated by the USGS.
+          </div>
+          <div class="placeholderImg">
+            <img id="dNBR" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Grey_Square.svg/240px-Grey_Square.svg.png">
+          </div>
+          <div class="caption">
+            Figure 2. Preliminary fire severity data can be derived from a classified dNBR.
+          </div>
+        </div>-->
+        <div id="soils">
+          <h3>Soils Summary</h3>
+          <div>
+            These data are based on the NRCS gSSURGO layer (Figure 3).
+          </div>
+          <div class="placeholderImg">
+            <img id="soilChart" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Grey_Square.svg/240px-Grey_Square.svg.png">
+          </div>
+          <div class="caption">
+            Figure 3. The percent area of hydrologic soil groups within the fire area. Soils can be grouped into four hydrologic soil groups (A, B, C, & D) based on their hydrologic characteristics; primarily the degree to which the soil type promotes runoff or infiltration. Hydrologic group A has the highest rate of infiltration and generates very little runoff while hydrologic group D has the lowest rate of infiltration and generates a large amount of runoff. Sands tend to promote infiltration while clays promote runoff; read more about hydrologic soil groups here: <a href="https://engineering.purdue.edu/mapserve/LTHIA7/lthianew/hsg.htm">https://engineering.purdue.edu/mapserve/LTHIA7/lthianew/hsg.htm</a>.
+          </div>
+        </div>
+        <div id="landCover">
+          <h3>Land Cover Summary</h3>
+          <div>
+            These data are based on the LANDFIRE Existing Vegetation Type (EVT) layer where the majority of pixels belong to the ###Mediterranean California Mixed Evergreen Forest class 7043. 
+          </div>
+          <div class="caption">
+            Table 3. Percent cover represents the proportion of the burned area occupied by the majority EVT cover type. 
+          </div>
+        </div>
+        <div id="topography">
+          <h3>Topography Summary</h3>
+          <div>
+            These data are based on the USGS National Elevation Dataset (NED) layer.
+          </div>
+          <div class="placeholderImg">
+            <img id="aspectCompass" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Grey_Square.svg/240px-Grey_Square.svg.png">
+          </div>
+          <div class="caption">
+            Figure 4. A compass rose displaying aspect values ranging from -1 to 360. Values of -1 represent terrain that is considered flat, values 0 and 360 both represent north facing slopes, a value of 90 represents east facing slopes, a value of 180 represents south facing slopes, and a value of 270 represents west facing slopes. 
+          </div>
+          <div class="caption">
+            Table 4. Statistics describing aspect (the direction a surface faces(Figure 4)) across the fire area.
+          </div>
+          <div class="caption">
+            Table 5. Statistics describing elevation in meters above the local mean sea level (LMSL) across the fire area using the NAVD88 vertical datum. 
+          </div>
+          <div class="caption">
+            Table 6. Statistics describing slope (steepness of a surface measured in degrees) across the fire area. 
+          </div>
+          <div>
+            Slope degree values range from 0° to 90° where 0° slopes are flat / horizontal and 90° slopes are severely steep / vertical.
+          </div>
+        </div>
+      </div>
+      
+    </main>
+
+  </body>
+</html>
