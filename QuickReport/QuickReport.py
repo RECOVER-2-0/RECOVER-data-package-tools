@@ -177,6 +177,7 @@ def getFireInfo(fire_feature_class):
     return fire_info_list
 
 def main():
+    '''
     fireId = input("Please input a fire ID: (For example, Fire_2023_AZASF_000170)")
     # Path to data package folder
     fireDataPackage = os.path.join(os.path.dirname( arcpy.mp.ArcGISProject("CURRENT").filePath), fireId)
@@ -186,3 +187,6 @@ def main():
     print(fireDataPackage)
     print(fireGdb)
     print(fireFc)
+    '''
+
+    
