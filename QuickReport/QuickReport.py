@@ -43,7 +43,7 @@ def acreagePieChart(inputFeatures, clipFeatures, statField, chartTitle, outpath)
     plt.pie(x = acreList, labels = statFieldValList, colors = paletteColor, 
         autopct = '%.0f%%')
 
-    plt.savefig(os.path.join(outpath, "PieChart.png"))
+    plt.savefig(os.path.join(outpath, statField + "_PieChart.png"))
     
 # Land Cover Summary Table
 def landCoverSummary(zoneData, fire_feature_class, valueRaster):
@@ -186,6 +186,13 @@ def buildReport():
         writeToReport(report_doc_location = report_doc, HTML_to_insert = name_id, HTML_element_ID = "coverName")
         writeToReport(report_doc_location = report_doc, HTML_to_insert = acres, HTML_element_ID = "coverAcres")
 
+        # Generate, save, and insert surface management agency distribution pie chart into report
+        sma = os.path.join(fire_gdb, "SMA")
+        smaField = "MGMT_AGNCY"
+        t = "Surface Management Agency Summary"
+        acreagePieChart(sma, fire_fc, smaField, t, data_package)
+        sma_chart = f'<img src="{smaField + "_PieChart.png"}">'
+        writeToReport(report_doc, sma_chart, "smaChart")
 
 
 
