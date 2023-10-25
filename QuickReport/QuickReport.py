@@ -5,7 +5,7 @@ from arcpy.sa import *
 from IPython.display import HTML, display
 import pandas as pd
 from bs4 import BeautifulSoup
-
+import shutil
 
 # Surface Management Summary Pie Chart
 def acreagePieChart(inputFeatures, clipFeatures, statField, chartTitle, outpath):
@@ -132,28 +132,17 @@ def topoStatTable(zoneData, topoRaster, tblTitle):
     return str(df.to_html(index=False))
 
 # Write HTML to Report
-def writeToReport(data_package_location, HTML_to_insert, HTML_element_ID):
-    
-    templatePath = os.path.join(data_package_location, "Report_Boilerplate.html")
-
-    reportTemplate = open(templatePath)
-
+def writeToReport(report_doc_location, HTML_to_insert, HTML_element_ID):
+    reportTemplate = open(report_doc_location)
     soup = BeautifulSoup(reportTemplate, "html.parser")
-
     text = soup.find_all(id=HTML_element_ID)[0]
-
     text.clear()
-
     temp = BeautifulSoup(HTML_to_insert)
-
     nodesToInsert = temp.find('body').children
-
     for i, node in enumerate(nodesToInsert):
         text.insert(i, node)
-
-
     html = soup.prettify("utf-8")
-    with open(templatePath, "wb") as file:
+    with open(report_doc_location, "wb") as file:
         file.write(html)
 
 # Get fire info
@@ -179,20 +168,23 @@ def getFireInfo(fire_feature_class):
 def buildReport():
     
     try:
-        
         # data_package = arcpy.GetParametersAsText(0) # Get data package location
         data_package = r"C:\Users\coler\Documents\ArcGIS\Projects\ReportGeneration\Fire_2023_AZASF_000170"
         # Get fire ID, geodatabase, feature class
         fire_id = os.path.split(data_package)[1]
         fire_gdb = os.path.join(data_package, fire_id + ".gdb")
         fire_fc = os.path.join(fire_gdb, fire_id)
+
+        # Copy template (want to leave the boilerplate document intact for other reports)
+        report_doc = os.path.join(data_package, fire_id + "_Report.html")
+        shutil.copyfile(os.path.join(data_package, "Report_Boilerplate.html"), report_doc)
         
         # Insert HTML for fire name, ID, and acres into the report cover page
         fire_info = getFireInfo(fire_fc)
         name_id = f"<div>{fire_info[0]} Fire ({fire_info[1]}) Summary</div>"
         acres = f"<div>{fire_info[2]} Acres</div>"
-        writeToReport(data_package_location = data_package, HTML_to_insert = name_id, HTML_element_ID = "coverName")
-        writeToReport(data_package_location = data_package, HTML_to_insert = acres, HTML_element_ID = "coverAcres")
+        writeToReport(report_doc_location = report_doc, HTML_to_insert = name_id, HTML_element_ID = "coverName")
+        writeToReport(report_doc_location = report_doc, HTML_to_insert = acres, HTML_element_ID = "coverAcres")
 
 
 
