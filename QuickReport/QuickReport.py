@@ -213,7 +213,10 @@ def buildReport():
         # Land Cover Summary Table
         evt_raster = os.path.join(data_package, "EVT.tif")
         land_cover_table = landCoverSummary(fire_fc, evt_raster)
-        writeToReport(report_doc, land_cover_table, "landCoverTable")
+        writeToReport(report_doc, land_cover_table, "landCoverTable") ## TODO: Re-format land cover table to look cleaner
+
+        # Topography Summary Tables
+        
 
         print("Success!")
 
