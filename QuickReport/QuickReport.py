@@ -41,9 +41,10 @@ def acreagePieChart(inputFeatures, clipFeatures, statField, chartTitle, outpath)
     plt.title("Total acreage: " + str(round(totalAcreage, 2)))
 
     plt.pie(x = acreList, labels = statFieldValList, colors = paletteColor, 
-        autopct = '%.0f%%')
+        autopct = '%.1f%%')
 
     plt.savefig(os.path.join(outpath, statField + "_PieChart.png"))
+    plt.clf()
     
 # Land Cover Summary Table
 def landCoverSummary(zoneData, fire_feature_class, valueRaster):
@@ -137,7 +138,7 @@ def writeToReport(report_doc_location, HTML_to_insert, HTML_element_ID):
     soup = BeautifulSoup(reportTemplate, "html.parser")
     text = soup.find_all(id=HTML_element_ID)[0]
     text.clear()
-    temp = BeautifulSoup(HTML_to_insert)
+    temp = BeautifulSoup(HTML_to_insert, features= "lxml")
     nodesToInsert = temp.find('body').children
     for i, node in enumerate(nodesToInsert):
         text.insert(i, node)
@@ -169,7 +170,7 @@ def buildReport():
     
     try:
         # data_package = arcpy.GetParametersAsText(0) # Get data package location
-        data_package = r"C:\Users\coler\Documents\ArcGIS\Projects\ReportGeneration\Fire_2023_AZASF_000170"
+        data_package = r"C:\Users\coler\Documents\ArcGIS\Projects\ReportGeneration\Fire_2023_COSJF_000570"
         # Get fire ID, geodatabase, feature class
         fire_id = os.path.split(data_package)[1]
         fire_gdb = os.path.join(data_package, fire_id + ".gdb")
@@ -186,7 +187,7 @@ def buildReport():
         writeToReport(report_doc_location = report_doc, HTML_to_insert = name_id, HTML_element_ID = "coverName")
         writeToReport(report_doc_location = report_doc, HTML_to_insert = acres, HTML_element_ID = "coverAcres")
 
-        # Generate, save, and insert surface management agency distribution pie chart into report
+        # Surface Management Agency Summary Pie Chart
         sma = os.path.join(fire_gdb, "SMA")
         smaField = "MGMT_AGNCY"
         t = "Surface Management Agency Summary"
@@ -194,9 +195,18 @@ def buildReport():
         sma_chart = f'<img src="{smaField + "_PieChart.png"}">'
         writeToReport(report_doc, sma_chart, "smaChart")
 
+        # Soils Summary Pie Chart 
+        soil = os.path.join(fire_gdb, "Soils_gSSURGO")
+        soil_field = "HYDROLGRP_DCD"
+        t = "Hydrologic Soils Group Summary"
+        acreagePieChart(soil, fire_fc, soil_field, t, data_package)
+        soil_chart = f'<img src="{soil_field + "_PieChart.png"}">'
+        writeToReport(report_doc, soil_chart, "soilChart")
 
+        print("Success!")
 
     except Exception as e:
+        print("Failure.")
         print(e)
 
 if __name__ == "__main__":
