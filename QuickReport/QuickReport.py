@@ -176,17 +176,29 @@ def getFireInfo(fire_feature_class):
     
     return fire_info_list
 
-def main():
-    '''
-    fireId = input("Please input a fire ID: (For example, Fire_2023_AZASF_000170)")
-    # Path to data package folder
-    fireDataPackage = os.path.join(os.path.dirname( arcpy.mp.ArcGISProject("CURRENT").filePath), fireId)
-    fireGdb = os.path.join(fireDataPackage, fireId + ".gdb")
-    fireFc = os.path.join(fireGdb, fireId)
-
-    print(fireDataPackage)
-    print(fireGdb)
-    print(fireFc)
-    '''
-
+def buildReport():
     
+    try:
+        
+        # data_package = arcpy.GetParametersAsText(0) # Get data package location
+        data_package = r"C:\Users\coler\Documents\ArcGIS\Projects\ReportGeneration\Fire_2023_AZASF_000170"
+        # Get fire ID, geodatabase, feature class
+        fire_id = os.path.split(data_package)[1]
+        fire_gdb = os.path.join(data_package, fire_id + ".gdb")
+        fire_fc = os.path.join(fire_gdb, fire_id)
+        
+        # Insert HTML for fire name, ID, and acres into the report cover page
+        fire_info = getFireInfo(fire_fc)
+        name_id = f"<div>{fire_info[0]} Fire ({fire_info[1]}) Summary</div>"
+        acres = f"<div>{fire_info[2]} Acres</div>"
+        writeToReport(data_package_location = data_package, HTML_to_insert = name_id, HTML_element_ID = "coverName")
+        writeToReport(data_package_location = data_package, HTML_to_insert = acres, HTML_element_ID = "coverAcres")
+
+
+
+
+    except Exception as e:
+        print(e)
+
+if __name__ == "__main__":
+    buildReport()
