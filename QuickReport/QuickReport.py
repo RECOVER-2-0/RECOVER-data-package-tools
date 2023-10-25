@@ -6,6 +6,7 @@ from IPython.display import HTML, display
 import pandas as pd
 from bs4 import BeautifulSoup
 import shutil
+import traceback
 
 # Surface Management Summary Pie Chart
 def acreagePieChart(inputFeatures, clipFeatures, statField, chartTitle, outpath):
@@ -47,14 +48,20 @@ def acreagePieChart(inputFeatures, clipFeatures, statField, chartTitle, outpath)
     plt.clf()
     
 # Land Cover Summary Table
-def landCoverSummary(zoneData, fire_feature_class, valueRaster):
+def landCoverSummary(zoneData, valueRaster):
+    
+    fire_latest_ObjectID = int(arcpy.GetCount_management(zoneData)[0])
+    
     arcpy.CheckOutExtension("Spatial")
     
     zoneField = "poly_IncidentName" # should always be the same
-    outTable = "zStat_EVT"
-    
-    ZonalStatisticsAsTable(zoneData, zoneField, valueRaster, outTable,
-                          "DATA", "MAJORITY")
+    outTable = os.path.join(os.path.split(zoneData)[0], "zStat_EVT")
+    with arcpy.EnvManager(overwriteOutput = True):
+
+        arcpy.MakeFeatureLayer_management(zoneData, "latest_shape", f"OBJECTID = {fire_latest_ObjectID}")
+
+        ZonalStatisticsAsTable("latest_shape", zoneField, valueRaster, outTable,
+                            "DATA", "MAJORITY")
     
     arcpy.CheckInExtension("Spatial")
     
@@ -76,21 +83,21 @@ def landCoverSummary(zoneData, fire_feature_class, valueRaster):
     
     ## next, calculate pct cover by calculating *vals* Acres/ *fireFc* Shape_Area/4046.8564224
     flds.append("Pct_Cover")
+    print(vals)
+    valsList = list(vals[0]) 
     
-    valsList = list(vals[0]) # For some reason, the search cursor returns a list of 1 tuple, so here we change it back into a list
-    
-    fireFcShapeArea = [row[0] for row in arcpy.da.SearchCursor(fire_feature_class, ["Shape_Area"])][0]
+    fireFcShapeArea = [row[0] for row in arcpy.da.SearchCursor(zoneData, ["Shape_Area"])][0]
     lcAcres = valsList[5]
 
     pctCov = (round(lcAcres/(fireFcShapeArea/4046.8564224), 4) * 100)
 
     valsList.append(pctCov)
         
-    fldsVals = [fldsCln, valsList]
+    #fldsVals = [fldsCln, valsList]
     
     df = pd.DataFrame({'Attribute': fldsCln, 'Value': valsList})
     
-    print(df.to_html(index=False, header=False))
+    #print(df.to_html(index=False, header=False))
     
     df = df.style.set_caption("MAJORITY EVT COVER").set_table_styles([{
         'selector': 'caption',
@@ -203,10 +210,16 @@ def buildReport():
         soil_chart = f'<img src="{soil_field + "_PieChart.png"}">'
         writeToReport(report_doc, soil_chart, "soilChart")
 
+        # Land Cover Summary Table
+        evt_raster = os.path.join(data_package, "EVT.tif")
+        land_cover_table = landCoverSummary(fire_fc, evt_raster)
+        writeToReport(report_doc, land_cover_table, "landCoverTable")
+
         print("Success!")
 
     except Exception as e:
         print("Failure.")
+        print(traceback.format_exc())
         print(e)
 
 if __name__ == "__main__":
