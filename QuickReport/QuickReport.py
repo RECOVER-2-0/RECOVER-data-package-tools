@@ -83,7 +83,7 @@ def landCoverSummary(zoneData, valueRaster):
     
     ## next, calculate pct cover by calculating *vals* Acres/ *fireFc* Shape_Area/4046.8564224
     flds.append("Pct_Cover")
-    print(vals)
+    
     valsList = list(vals[0]) 
     
     fireFcShapeArea = [row[0] for row in arcpy.da.SearchCursor(zoneData, ["Shape_Area"])][0]
