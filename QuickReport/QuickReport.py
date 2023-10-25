@@ -110,7 +110,6 @@ def landCoverSummary(zoneData, valueRaster):
 
     #display(HTML(df.to_html(index=False)))
     return str(df.to_html(index=False))
-    
 
 # Topography Summary Tables    
 def topoStatTable(zoneData, topoRaster, tblTitle):
@@ -216,7 +215,7 @@ def buildReport():
         writeToReport(report_doc, land_cover_table, "landCoverTable") ## TODO: Re-format land cover table to look cleaner
 
         # Topography Summary Tables
-        
+
 
         print("Success!")
 
