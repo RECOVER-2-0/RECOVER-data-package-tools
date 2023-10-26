@@ -113,12 +113,18 @@ def landCoverSummary(zoneData, valueRaster):
 
 # Topography Summary Tables    
 def topoStatTable(zoneData, topoRaster, tblTitle):
+    
+    fire_latest_ObjectID = int(arcpy.GetCount_management(zoneData)[0])
+
     arcpy.CheckOutExtension("Spatial")
     
     zoneField = "poly_IncidentName" # Should always be the same
-    outTable = "zStat_topo" 
-    
-    ZonalStatisticsAsTable(zoneData, zoneField, topoRaster, outTable,
+    outTable = os.path.join(os.path.split(zoneData)[0], "zStat_topo")
+    with arcpy.EnvManager(overwriteOutput = True):
+        
+        arcpy.MakeFeatureLayer_management(zoneData, "latest_shape", f"OBJECTID = {fire_latest_ObjectID}")
+
+        ZonalStatisticsAsTable("latest_shape", zoneField, topoRaster, outTable,
                           "DATA", "ALL")
     
     arcpy.CheckInExtension("Spatial")
@@ -215,6 +221,18 @@ def buildReport():
         writeToReport(report_doc, land_cover_table, "landCoverTable") ## TODO: Re-format land cover table to look cleaner
 
         # Topography Summary Tables
+        aspect = os.path.join(data_package, "TopographyAspect_WesternUS.tif")
+        aspect_table_html = topoStatTable(fire_fc, aspect, "Aspect")
+        writeToReport(report_doc, aspect_table_html, "aspectTable")
+
+        elev = os.path.join(data_package, "TopographyElevation_WesternUS_bepf.tif")
+        elev_table_html = topoStatTable(fire_fc, elev, "Elevation")
+        writeToReport(report_doc, elev_table_html, "elevationTable")
+
+        slope = os.path.join(data_package, "TopographySlopeDegree_WesternUS.tif")
+        slope_table_html = topoStatTable(fire_fc, slope, "Slope")
+        writeToReport(report_doc, slope_table_html, "slopeTable")
+
 
 
         print("Success!")
