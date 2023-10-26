@@ -139,9 +139,6 @@ def topoStatTable(zoneData, topoRaster, tblTitle):
     
     df = pd.DataFrame({tblTitle: statCln, '': roundedValsList})
     
-    print(df.to_html(index=False))
-
-    #display(HTML(df.to_html(index=False)))
     return str(df.to_html(index=False))
 
 # Write HTML to Report
