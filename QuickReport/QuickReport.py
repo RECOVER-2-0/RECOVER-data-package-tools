@@ -109,27 +109,15 @@ def landCoverSummary(zoneData, valueRaster):
     fireFcShapeArea = [row[0] for row in arcpy.da.SearchCursor(zoneData, ["Shape_Area"])][0]
     lcAcres = valsList[5]
 
-    pctCov = (round(lcAcres/(fireFcShapeArea/4046.8564224), 4) * 100)
+    pctCov = (round(lcAcres/(fireFcShapeArea/4046.8564224), 2) * 100)
 
     valsList.append(pctCov)
-        
-    #fldsVals = [fldsCln, valsList]
-    
-    df = pd.DataFrame({'Attribute': fldsCln, 'Value': valsList})
-    
-    #print(df.to_html(index=False, header=False))
-    
-    df = df.style.set_caption("MAJORITY EVT COVER").set_table_styles([{
-        'selector': 'caption',
-        'props': [
-            ('text-align', 'center'),
-            ('color', 'black'),
-            ('font-size', '14px')
-        ]
-    }])
 
-    #display(HTML(df.to_html(index=False)))
-    return str(df.to_html(index=False))
+    landCoverTxt = f"{valsList[1]} class {valsList[0]}"
+    
+    df = pd.DataFrame({'MAJORITY EVT COVER': fldsCln, '': valsList})
+    
+    return str(df.to_html(index=False)), landCoverTxt
 
 # Topography Summary Tables    
 def topoStatTable(zoneData, topoRaster, tblTitle):
@@ -244,8 +232,11 @@ def buildReport():
 
         # Land Cover Summary Table
         evt_raster = os.path.join(data_package, "EVT.tif")
-        land_cover_table = landCoverSummary(fire_fc, evt_raster)
+        land_cover_info = landCoverSummary(fire_fc, evt_raster)
+        land_cover_table = land_cover_info[0]
         writeToReport(report_doc, land_cover_table, "landCoverTable") ## TODO: Re-format land cover table to look cleaner
+        land_cover_text = land_cover_info[1]
+        writeToReport(report_doc, land_cover_text, "landCoverText")
 
         # Topography Summary Tables
         aspect = os.path.join(data_package, "TopographyAspect_WesternUS.tif")
