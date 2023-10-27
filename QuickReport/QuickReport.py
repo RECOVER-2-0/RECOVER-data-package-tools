@@ -8,6 +8,26 @@ from bs4 import BeautifulSoup
 import shutil
 import traceback
 
+# Population Summary Figures
+def popSummary(census_blocks):
+    # do something
+    total_population = 0
+    total_area = 0
+    null_area = 0
+    with arcpy.da.SearchCursor(census_blocks, ['pop_c', 'Shape_Area']) as cursor:
+        for row in cursor:
+            if row[0] is not None:
+                total_population += row[0]
+            else:
+                null_area += row[1]
+
+            total_area += row[1]
+    
+    total_area_acres = round((total_area/4046.8564224), 2)
+    population_data_availability = round((null_area/total_area), 2) * 100
+
+    return total_population, total_area_acres, population_data_availability
+
 # Surface Management Summary Pie Chart
 def acreagePieChart(inputFeatures, clipFeatures, statField, chartTitle, outpath):
     tempOutput = inputFeatures + "_Distribution"
@@ -195,6 +215,16 @@ def buildReport():
         acres = f"<div>{fire_info[2]} Acres</div>"
         writeToReport(report_doc_location = report_doc, HTML_to_insert = name_id, HTML_element_ID = "coverName")
         writeToReport(report_doc_location = report_doc, HTML_to_insert = acres, HTML_element_ID = "coverAcres")
+
+        # Population Summary
+        census_blocks_layer = os.path.join(fire_gdb, "Population_CensusBlocks2020")
+        summary_figs = popSummary(census_blocks_layer)
+        total_pop_html = f"<span>{summary_figs[0]}</span>"
+        writeToReport(report_doc, total_pop_html, "populationImpact")
+        total_acres_html = f"<span>{summary_figs[1]}</span>"
+        writeToReport(report_doc, total_acres_html, "totalAffectedAcres")
+        pop_data_availability_html = f"<span>{summary_figs[2]}</span>"
+        writeToReport(report_doc, pop_data_availability_html, "populationDataAvailability")
 
         # Surface Management Agency Summary Pie Chart
         sma = os.path.join(fire_gdb, "SMA")
