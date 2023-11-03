@@ -36,7 +36,7 @@
       
       .caption {
         font-style: italic;
-        color: grey;
+        color: black;
       }
       
       table {
@@ -52,6 +52,18 @@
       td {
         border: 1px solid black;
         padding: 5px;
+      }
+
+      .center {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      #topography img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 30em;
       }
       
     </style>
@@ -140,7 +152,7 @@
           <div class="caption">
             Figure 3. The percent area of hydrologic soil groups within the fire area. Soils can be grouped into four hydrologic soil groups (A, B, C, & D) based on their hydrologic characteristics; primarily the degree to which the soil type promotes runoff or infiltration. Hydrologic group A has the highest rate of infiltration and generates very little runoff while hydrologic group D has the lowest rate of infiltration and generates a large amount of runoff. Sands tend to promote infiltration while clays promote runoff; read more about hydrologic soil groups here: <a href="https://engineering.purdue.edu/mapserve/LTHIA7/lthianew/hsg.htm">https://engineering.purdue.edu/mapserve/LTHIA7/lthianew/hsg.htm</a>.
           </div>
-          <table>
+          <table class="center">
             <tr>
               <th>HYDROLOGIC SOIL GROUPS</th>
               <th></th>
@@ -180,7 +192,7 @@
           <div>
             These data are based on the USGS National Elevation Dataset (NED) layer.
           </div>
-          <div class="placeholderImg">
+          <div class="center">
             <img id="aspectCompass" src="AspectCompassRose.png">
           </div>
           <div class="caption">
