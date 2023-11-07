@@ -47,7 +47,7 @@
       
       table {
         border-collapse: collapse;
-        border: 1px solid black;
+        border: 1px solid black !important;
       }
       
       th {
@@ -92,7 +92,7 @@
         <div id="population">
           <h3>Population Summary</h3>
           <div>
-            These estimates are based on the 2020 Census data.<br>
+            These estimates are based on 2020 Census data.<br>
             <br>2020 Census block population data estimates this fire impacted <span id="populationImpact">####</span> people living within the fire impacted area. The impacted area (<span id="totalAffectedAcres">xyz</span> acres) of the fire is defined by the boundaries of all HUC12 watersheds intersecting the fire boundary. Population data existed for <span id="populationDataAvailability">##</span>% of the impacted area.
           </div>
         </div>
@@ -108,7 +108,8 @@
           <div class="caption">
             Figure 1. The acreage of lands managed by agencies within the fire area.
           </div>
-        </div> 
+        </div>
+        <div class="pagebreak"></div>
         <!--<div id="fireSeverity">
           <h3>Fire Severity Summary</h3>
           <div>
@@ -185,6 +186,7 @@
             </tr>
           </table>
         </div>
+        <div class="pagebreak"></div>
         <div id="landCover">
           <h3>Land Cover Summary</h3>
           <div>
@@ -197,6 +199,7 @@
             
           </div>
         </div>
+        <div class="pagebreak"></div>
         <div id="topography">
           <h3>Topography Summary</h3>
           <div>
@@ -222,7 +225,7 @@
           <div class="caption">
             Table 5. Statistics describing elevation in meters above the local mean sea level (LMSL) across the fire area using the NAVD88 vertical datum. 
           </div>
-          <br>
+          <div class="pagebreak"></div>
           <div id ="slopeTable" class="center">
             
           </div>
@@ -230,7 +233,7 @@
             Table 6. Statistics describing slope (steepness of a surface measured in degrees) across the fire area. 
           </div>
           <div>
-            Slope degree values range from 0° to 90° where 0° slopes are flat / horizontal and 90° slopes are severely steep / vertical.
+            Slope degree values range from 0 to 90 where 0-degree slopes are flat / horizontal and 90-degree slopes are severely steep / vertical.
           </div>
         </div>
       </div>
