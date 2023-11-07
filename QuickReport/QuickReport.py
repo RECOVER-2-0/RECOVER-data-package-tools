@@ -8,6 +8,31 @@ from bs4 import BeautifulSoup
 import shutil
 import traceback
 
+# Add commas to string of numbers
+def add_commas(number_input):
+
+    number_as_string = str(number_input)
+
+    if len(number_as_string) <= 3:
+        # No commas needed for numbers with three digits or less
+        pass
+    else:
+        number_list = list(number_as_string)
+        
+        # Use reversed() to go through the list backwards
+        number_with_commas_list = list(''.join(y + ',' * (x % 3 == 2) for x, y in enumerate(reversed(number_list))))
+
+        # numbers with digits that are multiples of 3 will always get a comma added to the end of their list form, so just remove it
+        if number_with_commas_list[len(number_with_commas_list) - 1] == ',':
+            number_with_commas_list.pop()
+
+        # reverse the list (now with commas) and turn it back into a string
+        number_with_commas_as_string = ''
+        for x in reversed(number_with_commas_list):
+            number_with_commas_as_string += x
+
+        return number_with_commas_as_string
+
 # Population Summary Figures
 def popSummary(census_blocks):
     # do something
@@ -23,10 +48,10 @@ def popSummary(census_blocks):
 
             total_area += row[1]
     
-    total_area_acres = round((total_area/4046.8564224))
+    total_area_acres = add_commas(round((total_area/4046.8564224)))
     population_data_availability = round((null_area/total_area)) * 100
 
-    return total_population, total_area_acres, population_data_availability
+    return add_commas(total_population), total_area_acres, population_data_availability
 
 # Surface Management Summary Pie Chart
 def acreagePieChart(inputFeatures, clipFeatures, statField, chartTitle, outpath):
@@ -57,9 +82,11 @@ def acreagePieChart(inputFeatures, clipFeatures, statField, chartTitle, outpath)
     #return statFieldValList, acreList, totalAcreage
 
     paletteColor = seaborn.color_palette('colorblind')
+
+    csfont = {'fontname': 'Times New Roman'}
     
-    plt.suptitle(chartTitle, fontsize = 14)
-    plt.title("Total acreage: " + str(round(totalAcreage)))
+    plt.suptitle(chartTitle, fontsize = 14, **csfont)
+    plt.title("Total acreage: " + add_commas(str(round(totalAcreage))), **csfont)
 
     plt.pie(x = acreList, labels = statFieldValList, colors = paletteColor, 
         autopct = '%.1f%%')
@@ -178,7 +205,7 @@ def getFireInfo(fire_feature_class):
             fire_info.append(row)
             
     fire_info_list = list(fire_info[index_selection])
-    acres = round(fire_info_list[2]/4046.8564224)
+    acres = add_commas(round(fire_info_list[2]/4046.8564224))
     fire_info_list[2] = acres
     
     return fire_info_list
@@ -187,7 +214,7 @@ def buildReport():
     
     try:
         # data_package = arcpy.GetParametersAsText(0) # Get data package location
-        data_package = r"C:\Users\coler\Documents\ArcGIS\Projects\ReportGeneration\Fire_2023_COSJF_000570"
+        data_package = r"C:\Users\coler\Documents\ArcGIS\Projects\ReportGeneration\Fire_2023_COSJF_001184"
         # Get fire ID, geodatabase, feature class
         fire_id = os.path.split(data_package)[1]
         fire_gdb = os.path.join(data_package, fire_id + ".gdb")
@@ -195,7 +222,7 @@ def buildReport():
 
         # Copy template (want to leave the boilerplate document intact for other reports)
         report_doc = os.path.join(data_package, fire_id + "_Report.html")
-        shutil.copyfile(os.path.join(data_package, "Report_Boilerplate.html"), report_doc)
+        shutil.copyfile(os.path.join(data_package, "FireReportBoilerplate.html"), report_doc)
         
         # Insert HTML for fire name, ID, and acres into the report cover page
         fire_info = getFireInfo(fire_fc)
