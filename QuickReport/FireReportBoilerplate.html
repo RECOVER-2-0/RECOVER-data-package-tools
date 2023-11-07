@@ -30,6 +30,10 @@
         width: 20em; 
         /* might need to change, unsure how export to PDF will deal with em */
       }
+
+      .pagebreak {
+        page-break-after: always;
+      }
       
       .content #population div {
         display: inline;
@@ -74,13 +78,14 @@
     <main>
       
       <!--PAGE ONE-->
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       <div class="cover">
         <img src="https://www.arcgis.com/sharing/rest/content/items/18fb54a427d449c08dc79ba4a650d636/resources/images/widget_159/1683741702207.png" alt="NASA RECOVER 2.0 logo"/>
         <div id="coverName">Fire Name (Fire Unique ID) Summary Report</div>
         <div id="coverAcres">##### Acres</div>
       </div>
       
-      <div id="divider"><br><br>###############################################################################################################################################<br><br></div>
+      <div class="pagebreak"></div>
       
       <!--PAGE TWO-->
       <div class="content">
