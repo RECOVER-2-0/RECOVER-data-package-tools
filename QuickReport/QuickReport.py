@@ -23,8 +23,8 @@ def popSummary(census_blocks):
 
             total_area += row[1]
     
-    total_area_acres = round((total_area/4046.8564224), 2)
-    population_data_availability = round((null_area/total_area), 2) * 100
+    total_area_acres = round((total_area/4046.8564224))
+    population_data_availability = round((null_area/total_area)) * 100
 
     return total_population, total_area_acres, population_data_availability
 
@@ -59,7 +59,7 @@ def acreagePieChart(inputFeatures, clipFeatures, statField, chartTitle, outpath)
     paletteColor = seaborn.color_palette('colorblind')
     
     plt.suptitle(chartTitle, fontsize = 14)
-    plt.title("Total acreage: " + str(round(totalAcreage, 2)))
+    plt.title("Total acreage: " + str(round(totalAcreage)))
 
     plt.pie(x = acreList, labels = statFieldValList, colors = paletteColor, 
         autopct = '%.1f%%')
