@@ -41,15 +41,14 @@ def popSummary(census_blocks):
     null_area = 0
     with arcpy.da.SearchCursor(census_blocks, ['pop_c', 'Shape_Area']) as cursor:
         for row in cursor:
+            total_area += row[1]
             if row[0] is not None:
                 total_population += row[0]
             else:
                 null_area += row[1]
 
-            total_area += row[1]
-    
     total_area_acres = add_commas(round((total_area/4046.8564224)))
-    population_data_availability = round((null_area/total_area)) * 100
+    population_data_availability = round(100 - ((null_area/total_area) * 100))
 
     return add_commas(total_population), total_area_acres, population_data_availability
 
