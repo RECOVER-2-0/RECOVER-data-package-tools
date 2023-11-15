@@ -212,7 +212,7 @@ def buildReport(data_package):
     
     try:
         # data_package = arcpy.GetParametersAsText(0) # Get data package location
-        #data_package = r"C:\Users\coler\Documents\ArcGIS\Projects\ReportGeneration\Fire_2023_COSJF_001184"
+        
         # Get fire ID, geodatabase, feature class
         fire_id = os.path.split(data_package)[1]
         fire_gdb = os.path.join(data_package, fire_id + ".gdb")
