@@ -2,7 +2,6 @@ import arcpy, os
 from matplotlib import pyplot as plt
 import seaborn
 from arcpy.sa import *
-from IPython.display import HTML, display
 import pandas as pd
 from bs4 import BeautifulSoup
 import shutil
@@ -209,11 +208,11 @@ def getFireInfo(fire_feature_class):
     
     return fire_info_list
 
-def buildReport():
+def buildReport(data_package):
     
     try:
         # data_package = arcpy.GetParametersAsText(0) # Get data package location
-        data_package = r"C:\Users\coler\Documents\ArcGIS\Projects\ReportGeneration\Fire_2023_COSJF_001184"
+        #data_package = r"C:\Users\coler\Documents\ArcGIS\Projects\ReportGeneration\Fire_2023_COSJF_001184"
         # Get fire ID, geodatabase, feature class
         fire_id = os.path.split(data_package)[1]
         fire_gdb = os.path.join(data_package, fire_id + ".gdb")
@@ -287,4 +286,7 @@ def buildReport():
         print(e)
 
 if __name__ == "__main__":
-    buildReport()
+
+    data_package_location = arcpy.GetParameterAsText(0)
+
+    buildReport(data_package_location)
