@@ -88,6 +88,17 @@
       
       <!--PAGE TWO-->
       <div class="content">
+        <div id="intro">
+          <h3>Report Introduction</h3>
+          <div>This summary report was developed using spatial data layers found in the RECOVER Data Package for this particular fire. The intent of the report 
+            is to provide a quick overview of the fire's effects and impacts on the landscape. This includes population, soils, topographic summaries and other 
+            relevant information. The user is encouraged to further explore the data layers provided by the NASA RECOVER post-wildfire decision support system 
+            to facilitate a well-informed wildfire rehabilitation plan. To assist you in these efforts, please visit the RECOVER project webpage 
+            (<a href="https://giscenter.isu.edu/research/Techpg/nasa_RECOVER2/">https://giscenter.isu.edu/research/Techpg/nasa_RECOVER2/</a>), which provides 
+            additional tools, technologies, and capabilities. For additional details regarding all the spatial data used by RECOVER, please visit the following 
+            metadata link <a href="https://giscenter.isu.edu/pdf/PDF_NASA_RECOVER2/Metadata.pdf">https://giscenter.isu.edu/pdf/PDF_NASA_RECOVER2/Metadata.pdf</a>.
+          </div>
+        </div>
         <div id="population">
           <h3>Population Summary</h3>
           <div>
@@ -95,6 +106,7 @@
             <br>2020 Census block population data estimates this fire impacted <span id="populationImpact">####</span> people living within the fire impacted area. The fire impacted area, <span id="totalAffectedAcres"></span> acres, is defined by the boundaries of all HUC12 watersheds intersecting the fire boundary. Population data existed for <span id="populationDataAvailability"></span>% of the impacted area.
           </div>
         </div>
+        <div class="pagebreak"></div>
         <div id="surfaceMgmt">
           <h3>Surface Management Agency Summary</h3>
           <div>
@@ -182,6 +194,10 @@
             <tr>
               <td>Group D</td>
               <td>Soils that are largely made of clay, have a high water table, or are shallow above an impermeable layer; this soil group has the highest potential for runoff</td>
+            </tr>
+            <tr>
+              <td>Unk</td>
+              <td>Unknown soil type</td>
             </tr>
           </table>
         </div>

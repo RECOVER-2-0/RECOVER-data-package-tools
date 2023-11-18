@@ -264,7 +264,7 @@ def buildReport(data_package):
         writeToReport(report_doc, land_cover_text, "landCoverText")
 
         # Topography Summary Tables
-        aspect = os.path.join(data_package, "TopographyAspect_WesternUS.tif")
+        aspect = os.path.join(data_package, "Topography_AspectCardinalDirections.tif")
         aspect_table_html = topoStatTable(fire_fc, aspect, "Aspect")
         writeToReport(report_doc, aspect_table_html, "aspectTable")
 
@@ -287,6 +287,7 @@ def buildReport(data_package):
 
 if __name__ == "__main__":
 
-    data_package_location = arcpy.GetParameterAsText(0)
+    #data_package_location = arcpy.GetParameterAsText(0)
+    data_package_location = r"C:\Users\coler\Documents\ArcGIS\Projects\ReportGeneration\Fire_2023_COSJF_001184"
 
     buildReport(data_package_location)
