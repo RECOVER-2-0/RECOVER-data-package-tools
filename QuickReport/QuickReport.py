@@ -174,6 +174,38 @@ def topoStatTable(zoneData, topoRaster, tblTitle):
     
     return str(df.to_html(index=False))
 
+# Aspect Summary Tables    
+def aspectStatTable(zoneData, topoRaster, tblTitle):
+    
+    fire_latest_ObjectID = int(arcpy.GetCount_management(zoneData)[0])
+
+    arcpy.CheckOutExtension("Spatial")
+    
+    zoneField = "poly_IncidentName" # Should always be the same
+    outTable = os.path.join(os.path.split(zoneData)[0], "zStat_topo")
+    with arcpy.EnvManager(overwriteOutput = True):
+        
+        arcpy.MakeFeatureLayer_management(zoneData, "latest_shape", f"OBJECTID = {fire_latest_ObjectID}")
+
+        ZonalStatisticsAsTable("latest_shape", zoneField, topoRaster, outTable,
+                          "DATA", "ALL")
+    
+    arcpy.CheckInExtension("Spatial")
+    
+    statFlds = ["MIN", "MAX", "MEDIAN", "MAJORITY"]
+    statCln = ["Minimum", "Maximum", "Median", "Majority"]
+    
+    vals = [row for row in arcpy.da.SearchCursor(outTable, statFlds)]
+    valsList = list(vals[0]) # Forcing the list of 1 tuple returned by the SearchCursor to a plain list
+    
+    roundedValsList = [round(elem, 2) for elem in valsList]
+    
+    df = pd.DataFrame({tblTitle: statCln, '': roundedValsList})
+    
+    return str(df.to_html(index=False))
+
+
+
 # Write HTML to Report
 def writeToReport(report_doc_location, HTML_to_insert, HTML_element_ID):
     reportTemplate = open(report_doc_location)
@@ -265,7 +297,7 @@ def buildReport(data_package):
 
         # Topography Summary Tables
         aspect = os.path.join(data_package, "Topography_AspectCardinalDirections.tif")
-        aspect_table_html = topoStatTable(fire_fc, aspect, "Aspect")
+        aspect_table_html = aspectStatTable(fire_fc, aspect, "Aspect")
         writeToReport(report_doc, aspect_table_html, "aspectTable")
 
         elev = os.path.join(data_package, "TopographyElevation_WesternUS_bepf.tif")
