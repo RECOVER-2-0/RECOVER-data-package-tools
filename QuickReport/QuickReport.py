@@ -243,7 +243,6 @@ def getFireInfo(fire_feature_class):
 def buildReport(data_package):
     
     try:
-        # data_package = arcpy.GetParametersAsText(0) # Get data package location
         
         # Get fire ID, geodatabase, feature class
         fire_id = os.path.split(data_package)[1]
@@ -291,7 +290,7 @@ def buildReport(data_package):
         evt_raster = os.path.join(data_package, "EVT.tif")
         land_cover_info = landCoverSummary(fire_fc, evt_raster)
         land_cover_table = land_cover_info[0]
-        writeToReport(report_doc, land_cover_table, "landCoverTable") ## TODO: Re-format land cover table to look cleaner
+        writeToReport(report_doc, land_cover_table, "landCoverTable") 
         land_cover_text = land_cover_info[1]
         writeToReport(report_doc, land_cover_text, "landCoverText")
 
@@ -319,7 +318,6 @@ def buildReport(data_package):
 
 if __name__ == "__main__":
 
-    #data_package_location = arcpy.GetParameterAsText(0)
-    data_package_location = r"C:\Users\coler\Documents\ArcGIS\Projects\ReportGeneration\Fire_2023_COSJF_001184"
+    data_package_location = arcpy.GetParameterAsText(0)
 
     buildReport(data_package_location)
