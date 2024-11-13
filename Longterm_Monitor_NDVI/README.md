@@ -8,7 +8,8 @@ The tool is to take in user defined the ROI and time period, and download the La
 
 Instructions
 
-This script can be found in the longterm_monitor_NDVI.atbx. The toolbox can be opened in ArcGIS Pro 3.1 after. Parameters explaination are as the following:
+This script can be found in the longterm_monitor_NDVI.atbx which can be download from https://github.com/RECOVER-2-0/RECOVER-data-package-tools/blob/main/Longterm_Monitor_NDVI/longterm_monitor_NDVI.atbx.
+The toolbox can be opened in ArcGIS Pro 3.1 after. Parameters explaination are as the following:
 
 eeauth: The GEE authentication method. Choose from username or projectID.
 
