@@ -30,8 +30,11 @@ Satellite: End user can choose from LandSat 9 Level 2 Collection 2 Tier 1 scene,
 KNOW ISSUES/TO DO
 
 User needs to have an gmail account and register a GEE cloud project.
+
 If new user account applied, user need to go to C:\Users\[YOUR USERNAME]\.config\earthengine\ and delete the credentials file to avoid conflict.
+
 It would require a cloned ArcGIS python environment and installation geemap packages.
+
 ArcGIS pro deep learning package has a conflict with geemap packages. It would recommend seperate clone python environment to host geemap and deep learning packages seperately.
 
 
